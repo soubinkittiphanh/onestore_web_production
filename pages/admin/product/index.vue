@@ -11,6 +11,7 @@
       <dia-image :i-url="previewSrc" @closeDia="preview=false">
       </dia-image>
     </v-dialog>
+
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-select
         v-model="formData.pro_category"
@@ -141,8 +142,8 @@ export default {
     previewSrc:null,
     dialog: false,
     dialogMessage: false,
-    isloading: false,
     message: '',
+    isloading: false,
     valid: true,
     name: '',
     rules: {

@@ -93,6 +93,11 @@ export default {
         },
         {
           icon: '',
+          title: 'ຈັດການສຕັອກ',
+          to: '/admin/stock',
+        },
+        {
+          icon: '',
           title: 'ລາຍການສັ່ງຊື້',
           to: '/admin/inspire',
         },
