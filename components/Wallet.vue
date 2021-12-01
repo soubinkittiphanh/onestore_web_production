@@ -14,7 +14,7 @@
       <v-container>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
-            v-model="form_data.txn_id"
+            v-model="form_data.user_id"
             :counter="10"
             :rules="rule.idRules"
             label="ໄອດີ"
@@ -47,6 +47,7 @@
           ></v-text-field>
           <!-- <span>{{ formatNum(form_data.txn_his_amount) }}</span> -->
         </v-form>
+        {{userId}}
         <slot> </slot>
       </v-container>
       <v-card-actions>
@@ -71,7 +72,7 @@ export default {
     },
   },
   //   props: ['userId'],
-  data: () => {
+  data ()  {
     return {
       loaddata: [],
       isloading: false,
@@ -82,7 +83,7 @@ export default {
         txn_his_id: 1000,
         txn_id: 1000,
         txn_his_amount: 10000000,
-        user_id: 10001,
+        user_id: this.userId,
         txn_his_inputter: 10001,
         txn_his_date: '2021-09-25 00:00:00',
       },

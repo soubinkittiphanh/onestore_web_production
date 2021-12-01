@@ -11,7 +11,7 @@
     <v-dialog v-model="isstock" max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="text-h5">Product category</span>
+          <span class="text-h5">ເພີ່ມສະຕັອກສິນຄ້າ</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -117,24 +117,6 @@
         </template>
       </v-data-table>
     </v-card>
-    <v-file-input
-      ref="filesfield"
-      accept=".txt"
-      placeholder="Pick an avatar"
-      prepend-icon="mdi-file"
-      label="Stock file"
-      @change="attachFile"
-    ></v-file-input>
-    <!-- <v-file-input
-     
-      ref="filesfield"
-      multiple
-      accept="txt"
-      placeholder="Pick an avatar"
-      prepend-icon="mdi-camera"
-      label="ຮູບພາບຫລາຍພາບ"
-      @change="onFilesChange"
-    ></v-file-input> -->
   </div>
 </template>
 <script>
@@ -241,10 +223,10 @@ export default {
             // loop and push to real datacart
             i++
             console.log(`Data loop ${i} ${element}`)
-            this.carddata.push(element.split("'").pop()) // filter only valid number after ' and push to cartdata
+            this.carddata.push(element.replace("	","|").replace("	","|").split("'").pop()) // filter only valid number after ' and push to cartdata
             console.log(element.split("'").pop())
           })
-          console.log(this.carddata)
+          console.log("CARD DATA: "+this.carddata)
         }
         reader.onerror = (err) => console.log(err)
         reader.readAsText(file)

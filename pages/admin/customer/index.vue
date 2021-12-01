@@ -4,6 +4,7 @@
       <dialog-classic-message :message="message" @closedialog="message = null">
       </dialog-classic-message>
     </v-dialog>
+    {{form_data.cus_id}}
     <v-dialog v-model="wallet" max-width="300px">
       <wallet :user-id="form_data.cus_id" @closewallet="wallet = false"></wallet>
     </v-dialog>
@@ -216,7 +217,7 @@ export default {
   },
   methods: {
     walletAction(v) {
-      console.log('Wallet: ' + v)
+      console.log('Wallet: ' + v.cus_id)
       this.form_data.cus_id=v.cus_id;
     },
     editItem(val) {
