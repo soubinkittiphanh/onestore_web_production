@@ -84,7 +84,7 @@ export default {
         txn_id: 1000,
         txn_his_amount: 10000000,
         user_id: this.userId,
-        txn_his_inputter: 10001,
+        txn_his_inputter: this.$store.getters.loggedInUser.id,
         txn_his_date: '2021-09-25 00:00:00',
       },
       rule: {

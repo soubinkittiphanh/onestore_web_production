@@ -143,7 +143,8 @@
 </template>
 <script>
 export default {
-  data: () => ({
+    middleware: 'auths',
+  data () {return {
     wallet: false,
     isedit: false,
     dialog: false,
@@ -199,7 +200,7 @@ export default {
       ],
       walletRules: [(v) => !!v || 'ວົງເງິນ is required'],
     },
-  }),
+  }},
   async created() {
     await this.fetchData()
   },

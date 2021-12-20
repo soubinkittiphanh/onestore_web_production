@@ -8,8 +8,7 @@
       <loading-indicator> </loading-indicator>
     </v-dialog>
     <v-dialog v-model="preview" hide-overlay width="400px">
-      <dia-image :i-url="previewSrc" @closeDia="preview=false">
-      </dia-image>
+      <dia-image :i-url="previewSrc" @closeDia="preview = false"> </dia-image>
     </v-dialog>
 
     <v-form ref="form" v-model="valid" lazy-validation>
@@ -120,12 +119,7 @@
       </v-btn>
 
       <v-btn color="error" class="mr-4" @click="reset"> ລ້າງຂໍ້ມູນ </v-btn>
-      <v-btn
-        color="primary"
-        dark
-        class="mb-2"
-        @click="uploadFiles"
-      >
+      <v-btn color="primary" dark class="mb-2" @click="uploadFiles">
         ບັນທຶກ
       </v-btn>
     </v-form>
@@ -135,44 +129,47 @@
 <script>
 import ImagePreviewMixin from './mixins/ImagePreviewMixin.vue'
 export default {
+  middleware: 'auths',
   mixins: [ImagePreviewMixin],
 
-  data: () => ({
-    preview:false,
-    previewSrc:null,
-    dialog: false,
-    dialogMessage: false,
-    message: '',
-    isloading: false,
-    valid: true,
-    name: '',
-    rules: {
-      nameRule: [
-        (v) => !!v || 'ກະລຸນາ ໃສ່ຊື່ສິນຄ້າ ',
-        (v) => (v && v.length <= 25) || 'ຊື່ສິນຄ້າ ຍາວເກີນໄປ ກຳນົດ 25 ຕົວ',
-      ],
-      priceRule: [
-        (v) => !!v || 'ກະລຸນາໃສ່ລາຄາ',
-        (v) => +v > 0 || 'ກະລຸນ ໃສ່ລາຄາ > 0',
-        (v) => !!/^\d+$/.test(v) || 'ກະລຸນສາໃສ່ລາຄາ ເປັນຕົວເລກ ເທົ່ານັ້ນ',
-      ],
-      imageRule: [
-        (files) =>
-          !files ||
-          !files.some((file) => file.size > 2_097_152) ||
-          'Avatar size should be less than 2 MB!',
-      ],
-    },
-    category: [],
-    formData: {
-      pro_category: 1001,
-      pro_id: null,
-      pro_name: '',
-      pro_price: null,
-      pro_desc: '',
-      pro_status: false,
-    },
-  }),
+  data() {
+    return {
+      preview: false,
+      previewSrc: null,
+      dialog: false,
+      dialogMessage: false,
+      message: '',
+      isloading: false,
+      valid: true,
+      name: '',
+      rules: {
+        nameRule: [
+          (v) => !!v || 'ກະລຸນາ ໃສ່ຊື່ສິນຄ້າ ',
+          (v) => (v && v.length <= 25) || 'ຊື່ສິນຄ້າ ຍາວເກີນໄປ ກຳນົດ 25 ຕົວ',
+        ],
+        priceRule: [
+          (v) => !!v || 'ກະລຸນາໃສ່ລາຄາ',
+          (v) => +v > 0 || 'ກະລຸນ ໃສ່ລາຄາ > 0',
+          (v) => !!/^\d+$/.test(v) || 'ກະລຸນສາໃສ່ລາຄາ ເປັນຕົວເລກ ເທົ່ານັ້ນ',
+        ],
+        imageRule: [
+          (files) =>
+            !files ||
+            !files.some((file) => file.size > 2_097_152) ||
+            'Avatar size should be less than 2 MB!',
+        ],
+      },
+      category: [],
+      formData: {
+        pro_category: 1001,
+        pro_id: null,
+        pro_name: '',
+        pro_price: null,
+        pro_desc: '',
+        pro_status: false,
+      },
+    }
+  },
   mounted() {
     this.fetchCategory()
   },
@@ -218,7 +215,7 @@ export default {
       this.isloading = false
     },
     async uploadFiles() {
-      if(!this.$refs.form.validate()){
+      if (!this.$refs.form.validate()) {
         return
       }
       console.log('Files length: ' + this.files.length)
@@ -241,10 +238,10 @@ export default {
           this.message = er.response.data
         })
     },
-    previewImg(url){
-      this.previewSrc=url;
-      this.preview=true;
-    }
+    previewImg(url) {
+      this.previewSrc = url
+      this.preview = true
+    },
   },
 }
 </script>

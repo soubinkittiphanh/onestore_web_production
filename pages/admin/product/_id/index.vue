@@ -119,9 +119,6 @@
           </template>
         </v-list>
       </div>
-      <!-- <v-btn :disabled="!localValid" color="success" class="mr-4" @click="validateLocal()&&validateLocal">
-        ກວດສອບຂໍ້ມູນ
-      </v-btn> -->
       <v-btn color="error" class="mr-4" @click.prevent="hello">
         ລ້າງຂໍ້ມູນ
       </v-btn>
@@ -142,6 +139,7 @@
 // import ImagePreviewMixin from '../mixins/ImagePreviewMixin.vue'
 import ImagePreviewMixin from '../index.vue'
 export default {
+  middleware: 'auths',
   mixins: [ImagePreviewMixin],
   mounted() {
     console.log('FORMDATA ID: ' + this.formData.pro_id)

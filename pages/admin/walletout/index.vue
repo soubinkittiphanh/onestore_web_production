@@ -44,7 +44,8 @@
 </template>
 <script>
 export default {
-  data: () => ({
+  middleware: 'auths',
+  data () {return{
     dialog: false,
     valid: true,
     name: '',
@@ -71,7 +72,7 @@ export default {
       'ເຄື່ອງດື່ມ',
     ],
     checkbox: false,
-  }),
+  }},
 
   methods: {
     validate() {

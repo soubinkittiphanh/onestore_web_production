@@ -34,7 +34,7 @@
                 :rules="rule.passRules"
                 label="ລະຫັດຜ່ານ"
                 required
-                :type="!isedit?'':'password'"
+                :type="!isedit ? '' : 'password'"
               ></v-text-field>
               <v-text-field
                 v-model.number="form_data.user_tel"
@@ -98,7 +98,7 @@
       >
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title>ສະມາຊິກ: {{loaddata.length}}</v-toolbar-title>
+            <v-toolbar-title>ສະມາຊິກ: {{ loaddata.length }}</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-btn
@@ -132,48 +132,54 @@
 </template>
 <script>
 export default {
-  data: () => ({
-    isedit: false,
-    dialog: false,
-    isloading: false,
-    dialogForm: false,
-    message: '',
-    valid: true,
-    name: '',
-    search: '',
-    form_data: {
-      user_id: '1XXX',
-      user_name: 'soubin',
-      user_pass: 'password1234',
-      user_tel: '+85620',
-      user_addr: 'where do you stay?',
-      user_wallet: 90000,
-      user_desc: 'user remark',
-    },
-    loaddata: [],
-    headers: [
-      {
-        text: 'ໄອດີ',
-        align: 'center',
-        value: 'user_id',
+  middleware: 'auths',
+  data() {
+    return {
+      isedit: false,
+      dialog: false,
+      isloading: false,
+      dialogForm: false,
+      message: '',
+      valid: true,
+      name: '',
+      search: '',
+      form_data: {
+        user_id: '1XXX',
+        user_name: 'soubin',
+        user_pass: 'password1234',
+        user_tel: '+85620',
+        user_addr: 'where do you stay?',
+        user_wallet: 90000,
+        user_desc: 'user remark',
       },
-      { text: 'ຊື່ສະມາຊິກ', align: 'center', value: 'user_name' },
-      { text: 'ເບີໂທ', align: 'center', value: 'user_tel' },
-      { text: 'ບັນຊີ', align: 'center', value: 'user_wallet' },
-      {
-        text: 'ຟັງຊັ່ນ',
-        align: 'end',
-        value: 'function',
-        sortable: false,
+      loaddata: [],
+      headers: [
+        {
+          text: 'ໄອດີ',
+          align: 'center',
+          value: 'user_id',
+        },
+        { text: 'ຊື່ສະມາຊິກ', align: 'center', value: 'user_name' },
+        { text: 'ເບີໂທ', align: 'center', value: 'user_tel' },
+        { text: 'ບັນຊີ', align: 'center', value: 'user_wallet' },
+        {
+          text: 'ຟັງຊັ່ນ',
+          align: 'end',
+          value: 'function',
+          sortable: false,
+        },
+      ],
+      rule: {
+        idRules: [(v) => !!v || 'ໄອດີ is required'],
+        nameRules: [(v) => !!v || 'ຊຶ່ is required'],
+        passRules: [
+          (v) => !!v || 'ລະຫັດຜ່ານ is required',
+          (v) => v.length <= 10 || 'ລະຫັດຜ່ານ ຈຳກັດແຕ່ 10',
+        ],
+        walletRules: [(v) => !!v || 'ວົງເງິນ is required'],
       },
-    ],
-    rule: {
-      idRules: [(v) => !!v || 'ໄອດີ is required'],
-      nameRules: [(v) => !!v || 'ຊຶ່ is required'],
-      passRules: [(v) => !!v || 'ລະຫັດຜ່ານ is required',(v)=>(v.length<=10)||'ລະຫັດຜ່ານ ຈຳກັດແຕ່ 10'],
-      walletRules: [(v) => !!v || 'ວົງເງິນ is required'],
-    },
-  }),
+    }
+  },
   async created() {
     await this.fetchData()
   },
@@ -185,10 +191,9 @@ export default {
       }
       this.dialog = false
     },
-    isedit(v){
-      if (!v) this.form_data.user_id='1XXX'
-      
-    }
+    isedit(v) {
+      if (!v) this.form_data.user_id = '1XXX'
+    },
   },
   methods: {
     editItem(val) {

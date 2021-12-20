@@ -113,6 +113,11 @@
           </v-icon>
           <v-btn @click="updateStock(item)">
             <i class="fas fa-cart-plus"></i>
+            ເພີ່ນສະຕັອກ
+          </v-btn>
+          <v-btn @click="editStock(item)">
+            <i class="fas fa-dolly"></i>
+            ເບິ່ງສະຕັອກ
           </v-btn>
         </template>
       </v-data-table>
@@ -121,6 +126,7 @@
 </template>
 <script>
 export default {
+  middleware: 'auths',
   data() {
     return {
       showlist: false,
@@ -202,6 +208,13 @@ export default {
       // const obj=JSON.stringify(idx)
       this.$router.push(`/admin/product/${idx.pro_id}`)
     },
+    editStock(idx) {
+      console.log('ID ' + idx.pro_id)
+      console.log('NAME ' + idx.pro_name)
+      console.log('OBJ ' + Object.keys(idx))
+      // const obj=JSON.stringify(idx)
+      this.$router.push(`/admin/stock/${idx.pro_id}`)
+    },
     updateStock(proid) {
       this.isstock = true
       this.selectedStockProductId = proid.pro_id
@@ -223,10 +236,12 @@ export default {
             // loop and push to real datacart
             i++
             console.log(`Data loop ${i} ${element}`)
-            this.carddata.push(element.replace("	","|").replace("	","|").split("'").pop()) // filter only valid number after ' and push to cartdata
+            this.carddata.push(
+              element.replace('	', '|').replace('	', '|').split("'").pop()
+            ) // filter only valid number after ' and push to cartdata
             console.log(element.split("'").pop())
           })
-          console.log("CARD DATA: "+this.carddata)
+          console.log('CARD DATA: ' + this.carddata)
         }
         reader.onerror = (err) => console.log(err)
         reader.readAsText(file)
@@ -237,8 +252,9 @@ export default {
     stockSubmit() {
       console.log('Submitting....')
       this.isloading = true
+      const userId=this.$store.getters.loggedInUser.id
       const stockData = {
-        inputter_id: '10001',
+        inputter_id: userId,
         tranastion_data: this.carddata,
         card_type: this.selectedCardType,
         product_id: this.selectedStockProductId,
@@ -249,8 +265,8 @@ export default {
           console.log(res.data)
           this.message = res.data
           this.isloading = false
-          this.isstock=false
-          this.fetchData(); // UPDATE PRODUCT UI
+          this.isstock = false
+          this.fetchData() // UPDATE PRODUCT UI
         })
         .catch((er) => {
           console.log(er)

@@ -47,6 +47,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -54,7 +55,19 @@ export default {
     // baseURL: 'http://localhost:8080'
     baseURL: 'https://sitapionlinestore.herokuapp.com'
   },
-
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'mem_auth', method: 'post', propertyName: 'data.accessToken' },
+          user: { url: 'me', method: 'get', propertyName: 'data' },
+          logout: false
+        }
+      }
+    },  redirect: {
+      login: '/login'
+    }
+  },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],

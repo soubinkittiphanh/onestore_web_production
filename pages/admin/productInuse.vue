@@ -133,37 +133,40 @@ import ImagePreviewMixin from './product/mixins/ImagePreviewMixin.vue'
 import IdIndex from './product/_id/index.vue'
 export default {
   mixins: [ImagePreviewMixin, IdIndex],
-
-  data: () => ({
-    // product_id: this.$route.params.id,
-    dialog: false,
-    dialogMessage: false,
-    isloading: false,
-    message: '',
-    valid: true,
-    name: '',
-    rules: {
-      nameRule: [
-        (v) => !!v || 'Name is required',
-        (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
-      ],
-      imageRule: [
-        (files) =>
-          !files ||
-          !files.some((file) => file.size > 2_097_152) ||
-          'Avatar size should be less than 2 MB!',
-      ],
-    },
-    category: [],
-    formData: {
-      pro_category: 1001,
-      pro_id: null,
-      pro_name: '',
-      pro_price: 0,
-      pro_desc: '',
-      pro_status: false,
-    },
-  }),
+  middleware: 'auths',
+  data() {
+    return {
+      // product_id: this.$route.params.id,
+      dialog: false,
+      dialogMessage: false,
+      isloading: false,
+      message: '',
+      valid: true,
+      name: '',
+      rules: {
+        nameRule: [
+          (v) => !!v || 'Name is required',
+          (v) =>
+            (v && v.length <= 10) || 'Name must be less than 10 characters',
+        ],
+        imageRule: [
+          (files) =>
+            !files ||
+            !files.some((file) => file.size > 2_097_152) ||
+            'Avatar size should be less than 2 MB!',
+        ],
+      },
+      category: [],
+      formData: {
+        pro_category: 1001,
+        pro_id: null,
+        pro_name: '',
+        pro_price: 0,
+        pro_desc: '',
+        pro_status: false,
+      },
+    }
+  },
   mounted() {
     this.fetchCategory()
     console.log('Mounted: ')

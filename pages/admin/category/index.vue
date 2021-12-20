@@ -1,9 +1,11 @@
 <template>
   <div class="text-center">
+          <span class="text-h5">Product category </span>
+          <!-- <span class="text-h5">Product category {{this.$store.getters.loggedInUser}}</span> -->
     <v-dialog v-model="dialogForm" max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="text-h5">Product category</span>
+          <span class="text-h5">Product category {{this.$store.getters.loggedInUser}}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -118,6 +120,7 @@
 </template>
 <script>
 export default {
+  middleware: 'auths',
   data: () => ({
     isloading: false,
     isedit: false,

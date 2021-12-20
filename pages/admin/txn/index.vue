@@ -31,8 +31,10 @@
               <v-select
                 v-model="form_data.txn_type"
                 :items="loaddatatxntype"
-                :item-value="item => item.txn_type_id "
-                :item-text="item => item.txn_type_id +' - '+ item.txn_type_name"
+                :item-value="(item) => item.txn_type_id"
+                :item-text="
+                  (item) => item.txn_type_id + ' - ' + item.txn_type_name
+                "
                 @change="selectChange"
                 append-outer-icon="mdi-map"
                 menu-props="auto"
@@ -111,54 +113,57 @@
 </template>
 <script>
 export default {
-  data: () => ({
-    isedit: false,
-    dialog: false,
-    isloading: false,
-    dialogForm: false,
-    message: '',
-    valid: true,
-    name: '',
-    search: '',
-    loaddatatxntype: [],
-    form_data: {
-      txn_id: '1XXX',
-      txn_type: 1000,
-      txn_name: 'Dicount 50%',
-      txn_amount: 10000,
-      txn_user_id: 1000,
-      txn_inputter: 10001,
-      txn_date: '2021-09-25 00:00:00',
-    },
-    acc_sign: ['CR', 'DR'],
-    loaddata: [],
-    headers: [
-      {
-        text: 'ໄອດີ',
-        align: 'center',
-        value: 'txn_id',
+  middleware: 'auths',
+  data() {
+    return {
+      isedit: false,
+      dialog: false,
+      isloading: false,
+      dialogForm: false,
+      message: '',
+      valid: true,
+      name: '',
+      search: '',
+      loaddatatxntype: [],
+      form_data: {
+        txn_id: '1XXX',
+        txn_type: 1000,
+        txn_name: 'Dicount 50%',
+        txn_amount: 10000,
+        txn_user_id: 1000,
+        txn_inputter: 10001,
+        txn_date: '2021-09-25 00:00:00',
       },
-      { text: 'ຊື່ transaction', align: 'center', value: 'txn_name' },
-      { text: 'ປະເພດ', align: 'center', value: 'txn_type' },
-      { text: 'ຜູ້ສ້າງ', align: 'center', value: 'txn_inputter' },
-      { text: 'ວັນທີສ້າງ', align: 'center', value: 'txn_date' },
-      {
-        text: 'ຟັງຊັ່ນ',
-        align: 'end',
-        value: 'function',
-        sortable: false,
-      },
-    ],
-    rule: {
-      idRules: [(v) => !!v || 'ໄອດີ is required'],
-      nameRules: [(v) => !!v || 'ຊຶ່ is required'],
-      passRules: [
-        (v) => !!v || 'ລະຫັດຜ່ານ is required',
-        (v) => v.length <= 10 || 'ລະຫັດຜ່ານ ຈຳກັດແຕ່ 10',
+      acc_sign: ['CR', 'DR'],
+      loaddata: [],
+      headers: [
+        {
+          text: 'ໄອດີ',
+          align: 'center',
+          value: 'txn_id',
+        },
+        { text: 'ຊື່ transaction', align: 'center', value: 'txn_name' },
+        { text: 'ປະເພດ', align: 'center', value: 'txn_type' },
+        { text: 'ຜູ້ສ້າງ', align: 'center', value: 'txn_inputter' },
+        { text: 'ວັນທີສ້າງ', align: 'center', value: 'txn_date' },
+        {
+          text: 'ຟັງຊັ່ນ',
+          align: 'end',
+          value: 'function',
+          sortable: false,
+        },
       ],
-      walletRules: [(v) => !!v || 'ວົງເງິນ is required'],
-    },
-  }),
+      rule: {
+        idRules: [(v) => !!v || 'ໄອດີ is required'],
+        nameRules: [(v) => !!v || 'ຊຶ່ is required'],
+        passRules: [
+          (v) => !!v || 'ລະຫັດຜ່ານ is required',
+          (v) => v.length <= 10 || 'ລະຫັດຜ່ານ ຈຳກັດແຕ່ 10',
+        ],
+        walletRules: [(v) => !!v || 'ວົງເງິນ is required'],
+      },
+    }
+  },
   async created() {
     await this.fetchData()
   },
@@ -252,7 +257,7 @@ export default {
           console.log('Error: ' + er)
         })
       // Load Transaction type
-      this.loaddatatxntype=[];
+      this.loaddatatxntype = []
       await this.$axios
         .get('txn_type_f')
         .then((res) => {

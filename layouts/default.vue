@@ -70,6 +70,7 @@
 
 <script>
 export default {
+  // layout:"empty",
   data() {
     return {
       clipped: false,
@@ -91,15 +92,15 @@ export default {
           title: 'ລາຍການສິນຄ້າ',
           to: '/admin/product/productlist',
         },
-        {
-          icon: '',
-          title: 'ຈັດການສຕັອກ',
-          to: '/admin/stock',
-        },
+        // {
+        //   icon: '',
+        //   title: 'ຈັດການສຕັອກ',
+        //   to: '/admin/stock',
+        // },
         {
           icon: '',
           title: 'ລາຍການສັ່ງຊື້',
-          to: '/admin/inspire',
+          to: '/admin/orders',
         },
         {
           icon: '',
@@ -121,20 +122,20 @@ export default {
           title: 'Transaction',
           to: '/admin/txn',
         },
-        {
-          icon: '',
-          title: 'ເຕີມເງິນ',
-          to: '/admin/walletIn',
-        },
-        {
-          icon: '',
-          title: 'ຖອນເງິນ',
-          to: '/admin/walletOut',
-        },
+        // {
+        //   icon: '',
+        //   title: 'ເຕີມເງິນ',
+        //   to: '/admin/walletIn',
+        // },
+        // {
+        //   icon: '',
+        //   title: 'ຖອນເງິນ',
+        //   to: '/admin/walletOut',
+        // },
         {
           icon: '',
           title: 'ອອກຈາກລະບົບ',
-          to: '/admin/inspire',
+          to: '/admin/logout',
         },
       ],
       miniVariant: false,
