@@ -68,20 +68,10 @@
             >
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              @click="
-                dialogForm = true
-                isedit = false
-              "
-            >
-              ສ້າງໃຫມ່
-            </v-btn>
+      
           </v-toolbar>
         </template>
-        <template v-slot:[`item.img_function`]="{ item }">
+        <!-- <template v-slot:[`item.img_function`]="{ item }">
           <v-icon
             small
             class="mr-2"
@@ -92,7 +82,7 @@
           >
             mdi-pencil
           </v-icon>
-        </template>
+        </template> -->
         <template v-slot:[`item.img_active`]="{ item }">
           <v-btn
             small
@@ -151,12 +141,7 @@ export default {
         { text: 'name', align: 'center', value: 'img_name' },
         { text: 'path', align: 'center', value: 'img_path' },
         { text: 'ຫມາຍເຫດ', align: 'center', value: 'img_remark' },
-        {
-          text: 'ຟັງຊັ່ນ',
-          align: 'end',
-          value: 'img_function',
-          sortable: false,
-        },
+    
         {
           text: 'ຟັງຊັ່ນ',
           align: 'end',

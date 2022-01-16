@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <span class="text-h5">Product category </span>
+    <span class="text-h5">BANK LIST </span>
     <!-- <span class="text-h5">Product category {{this.$store.getters.loggedInUser}}</span> -->
     <v-dialog v-model="dialogForm" max-width="600px">
       <v-card>
