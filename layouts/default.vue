@@ -5,6 +5,7 @@
       :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
+      color="yellow"
       app
     >
       <v-list>
@@ -92,11 +93,7 @@ export default {
           title: 'ລາຍການສິນຄ້າ',
           to: '/admin/product/productlist',
         },
-        // {
-        //   icon: '',
-        //   title: 'ຈັດການສຕັອກ',
-        //   to: '/admin/stock',
-        // },
+   
         {
           icon: '',
           title: 'ລາຍການສັ່ງຊື້',
@@ -122,16 +119,31 @@ export default {
           title: 'Transaction',
           to: '/admin/txn',
         },
-        // {
-        //   icon: '',
-        //   title: 'ເຕີມເງິນ',
-        //   to: '/admin/walletIn',
-        // },
-        // {
-        //   icon: '',
-        //   title: 'ຖອນເງິນ',
-        //   to: '/admin/walletOut',
-        // },
+         {
+          icon: '',
+          title: 'ຈັດການໂຄສະນາ',
+          to: '/admin/advertise',
+        },
+         {
+          icon: '',
+          title: 'ຈັດການທະນາຄານ',
+          to: '/admin/bank',
+        },
+         {
+          icon: '',
+          title: 'ປະເພດຂໍ້ຄວາມຈາກລູກຄ້າ',
+          to: '/admin/customer_request',
+        },
+         {
+          icon: '',
+          title: 'ລາຍການແຈ້ງເຕີມ',
+          to: '/admin/customer_request/topup',
+        },
+         {
+          icon: '',
+          title: 'ລາຍການແຈ້ງຖອນ',
+          to: '/admin/customer_request/withdraw',
+        },
         {
           icon: '',
           title: 'ອອກຈາກລະບົບ',

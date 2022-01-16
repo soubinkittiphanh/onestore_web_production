@@ -11,7 +11,7 @@
               <notification v-if="errorMessage" :message="errorMessage" />
               <p>{{ this.$store.getters.loggedInUser.name }}</p>
               <v-card-text>
-                <v-form>
+                <v-form >
                   <v-text-field
                     v-model="email"
                     label="ກະລຸນາ ໃສ່ໄອດີ"
@@ -36,7 +36,8 @@
                     x-large
                     block
                     dark
-                    @click="login"
+                    @click.prevent="login"
+                    type="submit"
                   >
                     login
                     <v-icon> mdi mdi-login</v-icon>
