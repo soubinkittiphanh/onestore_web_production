@@ -48,6 +48,15 @@
         :counter="10"
         :rules="rules.priceRule"
         label="ລາຄາ"
+        type="number"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="formData.pro_retail_price"
+        :counter="10"
+        type="numbser"
+        :rules="rules.priceRule"
+        label="ລາຄາສົ່ງ %"
         required
       ></v-text-field>
       <v-textarea
@@ -205,6 +214,7 @@ export default {
             pro_price: el.pro_price,
             pro_desc: el.pro_desc,
             pro_status: el.pro_status === 1 || false,
+            pro_retail_price: el.retail_cost_percent,
             pro_image: image,
           }
           console.log('IMAGE COUNT: ' + this.formData.pro_image.length)

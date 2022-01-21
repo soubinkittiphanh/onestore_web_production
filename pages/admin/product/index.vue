@@ -38,8 +38,17 @@
       <v-text-field
         v-model="formData.pro_price"
         :counter="10"
+        type="number"
         :rules="rules.priceRule"
         label="ລາຄາ"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="formData.pro_retail_price"
+        :counter="10"
+        :rules="rules.retailRule"
+        type="number"
+        label="ລາຄາສົ່ງ %"
         required
       ></v-text-field>
       <v-textarea
@@ -152,6 +161,11 @@ export default {
           (v) => +v > 0 || 'ກະລຸນ ໃສ່ລາຄາ > 0',
           (v) => !!/^\d+$/.test(v) || 'ກະລຸນສາໃສ່ລາຄາ ເປັນຕົວເລກ ເທົ່ານັ້ນ',
         ],
+        retailRule: [
+          (v) => !!v || 'ກະລຸນາໃສ່ເປີເຊັນ ສ່ວນຫລຸດ ສຳລັບຂາຍສົ່ງ',
+          (v) => +v > 0 || 'ກະລຸນ ໃສ່ເປີເຊັນ > 0',
+          (v) => !!/^\d+$/.test(v) || 'ກະລຸນສາໃສ່ ເປັນຕົວເລກ ເທົ່ານັ້ນ',
+        ],
         imageRule: [
           (files) =>
             !files ||
@@ -165,6 +179,7 @@ export default {
         pro_id: null,
         pro_name: '',
         pro_price: null,
+        pro_retail_price: 0,
         pro_desc: '',
         pro_status: false,
       },
