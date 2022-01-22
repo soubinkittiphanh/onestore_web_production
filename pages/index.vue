@@ -10,7 +10,7 @@
           </v-card-title>
 
           <v-card-text class="text-h5 font-weight-bold">
-            ຈຳນວນ {{ loadData.length }} ລາຍການ
+            ຈຳນວນ {{ topupCount }} ລາຍການ
           </v-card-text>
 
           <v-card-actions>
@@ -28,11 +28,11 @@
               </v-list-item-content>
 
               <v-row align="center" justify="end">
-                <v-icon class="mr-1"> mdi-heart </v-icon>
-                <span class="subheading mr-2">256</span>
+                <v-icon class="mr-1"> mdi-elevation-decline </v-icon>
+                <span class="subheading mr-2">{{topupCountTotal}}</span>
                 <span class="mr-1">·</span>
-                <v-icon class="mr-1"> mdi-share-variant </v-icon>
-                <span class="subheading">45</span>
+                <v-icon class="mr-1"> mdi-checkbox-marked-circle </v-icon>
+                <span class="subheading">{{topupCountDone}}</span>
               </v-row>
             </v-list-item>
           </v-card-actions>
@@ -46,7 +46,7 @@
           </v-card-title>
 
           <v-card-text class="text-h5 font-weight-bold">
-            ຈຳນວນ {{ loadData.length }} ລາຍການ
+            ຈຳນວນ {{ withdrawCount }} ລາຍການ
           </v-card-text>
 
           <v-card-actions>
@@ -64,11 +64,11 @@
               </v-list-item-content>
 
               <v-row align="center" justify="end">
-                <v-icon class="mr-1"> mdi-heart </v-icon>
-                <span class="subheading mr-2">256</span>
+                <v-icon class="mr-1"> mdi-elevation-decline </v-icon>
+                <span class="subheading mr-2">{{withdrawCountTotal}}</span>
                 <span class="mr-1">·</span>
-                <v-icon class="mr-1"> mdi-share-variant </v-icon>
-                <span class="subheading">45</span>
+                <v-icon class="mr-1"> mdi-checkbox-marked-circle </v-icon>
+                <span class="subheading">{{withdrawCountDone}}</span>
               </v-row>
             </v-list-item>
           </v-card-actions>
@@ -102,7 +102,7 @@
               </v-list-item-content>
 
               <v-row align="center" justify="end">
-                <v-icon class="mr-1"> mdi-heart </v-icon>
+                <v-icon class="mr-1"> mdi-elevation-decline </v-icon>
                 <span class="subheading mr-2">256</span>
                 <span class="mr-1">·</span>
                 <v-icon class="mr-1"> mdi-share-variant </v-icon>
@@ -128,6 +128,68 @@ export default {
   mounted() {
     this.fetchData()
   },
+  computed: {
+    topupCount() {
+      let total = 0
+      if (this.loadData) {
+        console.log('Len: ' + this.loadData.length)
+         total = this.loadData.filter(
+          el => el.chat_msg_type === 'topup'&&el.chat_isread===0
+        ).length
+      }
+      return total
+    },
+    topupCountDone() {
+      let total = 0
+      if (this.loadData) {
+        console.log('Len: ' + this.loadData.length)
+         total = this.loadData.filter(
+          el => el.chat_msg_type === 'topup'&&el.chat_isread===1
+        ).length
+      }
+      return total
+    },
+    topupCountTotal() {
+      let total = 0
+      if (this.loadData) {
+        console.log('Len: ' + this.loadData.length)
+         total = this.loadData.filter(
+          el => el.chat_msg_type === 'topup'
+        ).length
+      }
+      return total
+    },
+    withdrawCount() {
+       let total = 0
+      if (this.loadData) {
+        console.log('Len: ' + this.loadData.length)
+         total = this.loadData.filter(
+          el => el.chat_msg_type === 'withdraw'&&el.chat_isread===0
+        ).length
+      }
+      return total
+    },
+    withdrawCountTotal() {
+       let total = 0
+      if (this.loadData) {
+        console.log('Len: ' + this.loadData.length)
+         total = this.loadData.filter(
+          el => el.chat_msg_type === 'withdraw'
+        ).length
+      }
+      return total
+    },
+    withdrawCountDone() {
+       let total = 0
+      if (this.loadData) {
+        console.log('Len: ' + this.loadData.length)
+         total = this.loadData.filter(
+          el => el.chat_msg_type === 'withdraw'&&el.chat_isread===1
+        ).length
+      }
+      return total
+    },
+  },
   methods: {
     async fetchData() {
       this.isloading = true
@@ -142,9 +204,7 @@ export default {
               chat_msg_type: el.msg_type,
               chat_message: el.chat_message,
               chat_user_id: el.user_id,
-              chat_chat_isread: el.chat_isread.toString().includes('0')
-                ? 'ຍັງ'
-                : 'ອ່ານແລ້ວ',
+              chat_isread: el.chat_isread,
               chat_chat_date_time: el.chat_date_time.replaceAll('T', ' '),
               chat_bank_acc_id: el.bank_acc_id,
               chat_bank_acc_name: el.bank_acc_name,
@@ -166,3 +226,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.text-h5,
+.grey {
+  font-family: 'Noto Sans Lao';
+}
+</style>
