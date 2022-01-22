@@ -149,12 +149,12 @@ export default {
           (v) =>
             (v && v.length <= 10) || 'Name must be less than 10 characters',
         ],
-        imageRule: [
-          (files) =>
-            !files ||
-            !files.some((file) => file.size > 2_097_152) ||
-            'Avatar size should be less than 2 MB!',
-        ],
+        // imageRule: [
+        //   (files) =>
+        //     !files ||
+        //     !files.some((file) => file.size > 2_097_152) ||
+        //     'Avatar size should be less than 2 MB!',
+        // ],
       },
       category: [],
       formData: {

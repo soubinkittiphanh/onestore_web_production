@@ -167,10 +167,28 @@ export default {
           (v) => !!/^\d+$/.test(v) || 'ກະລຸນສາໃສ່ ເປັນຕົວເລກ ເທົ່ານັ້ນ',
         ],
         imageRule: [
-          (files) =>
-            !files ||
-            !files.some((file) => file.size > 2_097_152) ||
-            'Avatar size should be less than 2 MB!',
+          (files) => {
+            let fileSize = 0
+            let totalSize = 0
+            if (files) {
+              files.forEach((el) => {
+                fileSize += el.size
+                console.log('Size: ' + el.size)
+              })
+              totalSize = fileSize / files.length
+              console.log('File size: aaa' + files.length+" Each: "+totalSize || 0 );
+            } else {
+              console.log('File: ' + files)
+            }
+
+            console.log('Total: ' + totalSize)
+            return totalSize<100000||"ຂະຫນາດເກີນ"
+          },
+
+          // (files) =>
+          //   !files ||
+          //   !files.some((file) => file.size > 2_097_152) ||
+          //   'Avatar size should be less than 2 MB!',
         ],
       },
       category: [],
