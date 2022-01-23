@@ -75,12 +75,12 @@ export default {
         },
         {
           icon: 'mdi-account-key',
-          title: 'ຈັດການສະມາຊິກ',
+          title: 'ຈັດການຜູ້ໃຊ້ງານ',
           to: '/admin/member',
         },
         {
           icon: 'mdi-account',
-          title: 'ຈັດການລູກຄ້າ',
+          title: 'ຈັດການສະມາຊິກ',
           to: '/admin/customer',
         },
         {

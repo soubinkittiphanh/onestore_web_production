@@ -79,6 +79,7 @@
         :headers="headers"
         :search="search"
         :items="loaddata"
+        items-per-page="30"
       >
         <template v-slot:top>
           <v-toolbar flat>
@@ -113,7 +114,7 @@
           </v-icon>
           <v-btn @click="updateStock(item)">
             <i class="fas fa-cart-plus"></i>
-            ເພີ່ນສະຕັອກ
+            ເພີ່ມສະຕັອກ
           </v-btn>
           <v-btn @click="editStock(item)">
             <i class="fas fa-dolly"></i>

@@ -172,6 +172,7 @@ export default {
       { text: 'ຊື່ສະມາຊິກ', align: 'center', value: 'cus_name' },
       { text: 'ເບີໂທ', align: 'center', value: 'cus_tel' },
       { text: 'email', align: 'center', value: 'cus_email' },
+      { text: 'ຍອດເງິນ', align: 'center', value: 'cus_balance' },
       {
         text: 'active',
         align: 'end',
@@ -283,6 +284,7 @@ export default {
               cus_name: el.cus_name,
               cus_tel: el.cus_tel,
               cus_email: el.cus_email,
+              cus_balance: Intl.NumberFormat().format(el.CREDIT-(el.ORDER_DEBIT+el.DEBIT)),
               cus_active: el.cus_active,
               function: el.cus_id,
               wallet: el.cus_id,
