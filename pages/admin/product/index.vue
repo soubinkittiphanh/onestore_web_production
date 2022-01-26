@@ -182,7 +182,7 @@ export default {
             }
 
             console.log('Total: ' + totalSize)
-            return totalSize<100000||"ຂະຫນາດເກີນ"
+            return totalSize<200000||"ຂະຫນາດເກີນ"
           },
 
           // (files) =>
