@@ -9,7 +9,7 @@
     </v-dialog>
     <v-card>
       <v-card-title>
-        ຈັດການ Wallet {{ form_data.user_id || 'null' }}</v-card-title
+        ຈັດການ Wallet {{ form_data.user_id || 'null' }} balance: {{form_data.user_balance}}</v-card-title
       >
       <v-container>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -70,6 +70,11 @@ export default {
       requiret: true,
       default: 0,
     },
+    cusBalance:{
+      type:Number,
+      requiret:true,
+      default:0,
+    },
   },
   //   props: ['userId'],
   data ()  {
@@ -85,6 +90,7 @@ export default {
         txn_type: 1004,
         txn_his_amount: 10000,
         user_id: this.userId,
+        user_balance: this.cusBalance,
         txn_his_inputter: this.$store.getters.loggedInUser.id,
         txn_his_date: '2021-09-25 00:00:00',
       },
@@ -134,6 +140,17 @@ export default {
         return
       }
       console.log('submitIn')
+      const balance=this.form_data.user_balance;
+      const txnAmount=this.form_data.txn_his_amount;
+      if(this.form_data.txn_id===1006){
+        if(txnAmount>balance){
+          this.isloading=false;
+          this.message="ຍອດເງິນໃນບັນຊີ ບໍ່ພຽງພໍ";
+          console.log("Biger")
+          return;
+        }
+      }
+      // return;
       const urlpath = '/txn_his_'
       if (this.isedit) {
         await this.$axios

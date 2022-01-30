@@ -5,8 +5,9 @@
       </dialog-classic-message>
     </v-dialog>
     {{form_data.cus_id}}
+  balance:  {{form_data.cus_balance}}
     <v-dialog v-model="wallet" max-width="300px">
-      <wallet :user-id="form_data.cus_id" @closewallet="wallet = false"></wallet>
+      <wallet :user-id="form_data.cus_id" :cus-balance="form_data.cus_balance" @closewallet="wallet = false"></wallet>
     </v-dialog>
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
@@ -160,6 +161,7 @@ export default {
       cus_name: 'cmeedit',
       cus_tel: '99884dd',
       cus_email: '@email.com',
+      cus_balance: 0,
       cus_active: false,
     },
     loaddata: [],
@@ -220,7 +222,10 @@ export default {
   methods: {
     walletAction(v) {
       console.log('Wallet: ' + v.cus_id)
+      console.log('Bal: ' + v.cus_balance)
       this.form_data.cus_id=v.cus_id;
+      this.form_data.cus_balance= parseInt( v.cus_balance.replaceAll(",",""));
+      console.log("Int: "+parseInt( v.cus_balance.replaceAll(",","")).toString());
     },
     editItem(val) {
       console.log(val.cus_id)
