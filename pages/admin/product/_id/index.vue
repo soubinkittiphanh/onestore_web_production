@@ -86,10 +86,10 @@
           <v-row justify="space-around">
             <v-list-item-avatar
               @click.prevent="
-                previewImg(`https://sitapionlinestore.herokuapp.com/uploads/${img.name}`)
+                previewImg(`https://nodejsclusters-66380-0.cloudclusters.net/${img.name}`)
               "
             >
-              <v-img :src="`https://sitapionlinestore.herokuapp.com/uploads/${img.name}`">
+              <v-img :src="`https://nodejsclusters-66380-0.cloudclusters.net/${img.name}`">
               </v-img>
             </v-list-item-avatar>
             <v-spacer></v-spacer>

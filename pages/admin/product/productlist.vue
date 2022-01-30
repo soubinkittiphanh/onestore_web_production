@@ -79,7 +79,8 @@
         :headers="headers"
         :search="search"
         :items="loaddata"
-        items-per-page="30"
+        :items-per-page="pageLine"
+        
       >
         <template v-slot:top>
           <v-toolbar flat>
@@ -141,6 +142,7 @@ export default {
       cardType: [],
       content: null,
       selectedCardType: '',
+      pageLine:30,
       search: '',
       headers: [
         {
