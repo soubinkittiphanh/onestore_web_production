@@ -4,7 +4,6 @@
       <dialog-classic-message :message="message" @closedialog="message = null">
       </dialog-classic-message>
     </v-dialog>
-   
 
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
@@ -26,7 +25,7 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="dateFormatted"
-                  label="Date"
+                  label="ຈາກວັນທີ:"
                   hint="MM/DD/YYYY format"
                   persistent-hint
                   prepend-icon="mdi-calendar"
@@ -41,9 +40,35 @@
                 @input="menu1 = false"
               ></v-date-picker>
             </v-menu>
-            <!--       
-          </v-col>
-          <v-col cols="12" lg="2"> -->
+
+            <v-menu
+              ref="menu2"
+              v-model="menu2"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="dateFormatted2"
+                  label="ຫາວັນທີ:"
+                  hint="MM/DD/YYYY format"
+                  persistent-hint
+                  prepend-icon="mdi-calendar"
+                  v-bind="attrs"
+                  @blur="date2 = parseDate(dateFormatted2)"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="date2"
+                no-title
+                @input="menu2 = false"
+              ></v-date-picker>
+            </v-menu>
+            <span> ລາຄາລວມ: {{ totalSale }}</span>
           </v-col>
           <v-col cols="12" lg="5">
             <v-text-field
@@ -53,6 +78,14 @@
               single-line
               hide-detailsx
             />
+            <v-text-field
+              v-model="userId"
+              append-icon="mdi-magnify"
+              label="ລະຫັດຜູ້ຂາຍ"
+              single-line
+              hide-detailsx
+            />
+            <v-btn @click="fetchData"> ດຶງລາຍງານ </v-btn>
           </v-col>
         </v-row>
       </v-card-title>
@@ -63,7 +96,6 @@
         :search="search"
         :items="loaddata"
       >
-
       </v-data-table>
     </v-card>
   </div>
@@ -82,7 +114,7 @@ export default {
       valid: true,
       name: '',
       search: '',
-
+      userId:null,
       loaddata: [],
       headers: [
         {
@@ -111,13 +143,20 @@ export default {
           value: 'txn_date',
           sortable: true,
         },
- 
       ],
 
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
+      date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
       dateFormatted: this.formatDate(
+        new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+          .toISOString()
+          .substr(0, 10)
+      ),
+      dateFormatted2: this.formatDate(
         new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
           .substr(0, 10)
@@ -144,31 +183,34 @@ export default {
       this.dateFormatted = this.formatDate(this.date)
       this.fetchData()
     },
+    date2(val) {
+      this.dateFormatted2 = this.formatDate(this.date2)
+      this.fetchData()
+    },
   },
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date)
     },
     totalSale() {
-      let total=0;
-      this.loaddata.forEach(el=>{
-          total+=el.order_price_total
+      let total = 0
+      this.loaddata.forEach((el) => {
+        total += parseInt(el.order_price_total.replaceAll(',', ''))
       })
-        // return previousValue.order_price_total + currentValue.order_price_total
-        return this.getFormatNum(total)
-      }
-    
+      console.log('Price total: ' + total)
+      // return previousValue.order_price_total + currentValue.order_price_total
+      return this.getFormatNum(total)
+      // return total
+    },
   },
   methods: {
- 
-
-    getFormatNum(val){
-        return new Intl.NumberFormat().format(val)
+    getFormatNum(val) {
+      return new Intl.NumberFormat().format(val)
     },
     async fetchData() {
       this.isloading = true
       await this.$axios
-        .get('order_date_f/?date=' + this.date)
+        .get('order_date_f/?fromDate=' + this.date+'&toDate='+this.date2+'&userId='+this.userId)
         .then((res) => {
           this.loaddata = res.data.map((el) => {
             console.log(el.cus_id)
@@ -179,7 +221,7 @@ export default {
               product_amount: el.product_amount,
               product_price: this.getFormatNum(el.product_price),
               order_price_total: this.getFormatNum(el.order_price_total),
-              txn_date: el.txn_date.replaceAll("T"," "),
+              txn_date: el.txn_date.replaceAll('T', ' '),
               function: el.order_id,
             }
           })
