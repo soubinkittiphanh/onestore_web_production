@@ -123,6 +123,7 @@ export default {
           value: 'order_id',
         },
         { text: 'ລະຫັດຜູ້ຊື້', align: 'center', value: 'user_id' },
+        { text: 'ຊື່', align: 'center', value: 'cus_name' },
         { text: 'ລະຫັດສິນຄ້າ', align: 'center', value: 'product_id' },
         { text: 'ຈຳນວນ', align: 'center', value: 'product_amount' },
         {
@@ -218,6 +219,7 @@ export default {
               order_id: el.order_id,
               user_id: el.user_id,
               product_id: el.product_id + ' - ' + el.pro_name,
+              cus_name:el.cus_name,
               product_amount: el.product_amount,
               product_price: this.getFormatNum(el.product_price),
               order_price_total: this.getFormatNum(el.order_price_total),

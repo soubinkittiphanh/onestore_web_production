@@ -38,13 +38,13 @@
             v-model="form_data.txn_his_amount"
             :counter="10"
             :rules="rule.amountRules"
-            label="ຈຳນວນເງິນ"
+            :label="`ຈຳນວນເງິນ: ` + formatNum(form_data.txn_his_amount)"
             required
           ></v-text-field>
-          <v-text-field
+          <!-- <v-text-field
             :label="formatNum(form_data.txn_his_amount)"
             disabled
-          ></v-text-field>
+          ></v-text-field> -->
           <!-- <span>{{ formatNum(form_data.txn_his_amount) }}</span> -->
         </v-form>
         {{userId}}
