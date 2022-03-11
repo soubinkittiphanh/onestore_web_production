@@ -93,6 +93,11 @@ export default {
           title: 'Transaction',
           to: '/admin/txn',
         },
+        {
+          icon: 'mdi-cash',
+          title: 'ລາຍງານສະເຕດເມັ້ນ',
+          to: '/admin/report',
+        },
          {
           icon: 'mdi-alarm-light',
           title: 'ຈັດການໂຄສະນາ',
