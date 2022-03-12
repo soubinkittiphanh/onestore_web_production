@@ -83,7 +83,7 @@
             <v-text-field
               v-model="userId"
               append-icon="mdi-magnify"
-              label="ລະຫັດຜູ້ຂາຍ"
+              label="ລະຫັດແອັດມິນ"
               single-line
               hide-detailsx
             />
