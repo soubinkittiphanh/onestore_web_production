@@ -127,7 +127,8 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.function`]="{ item }">
-          <v-btn @click="delCard(item)">
+          
+          <v-btn v-if="item.status==='ພ້ອມໃຊ້'" @click="delCard(item)">
             <i class="fas fa-trash"></i>
           </v-btn>
         </template>

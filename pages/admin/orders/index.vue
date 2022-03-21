@@ -69,6 +69,12 @@
               ></v-date-picker>
             </v-menu>
             <span> ລາຄາລວມ: {{ totalSale }}</span>
+            <div>
+              <span> ລາຄາລວມເຕັມ: {{ totalSaleOriginal }}</span>
+            </div>
+            <div>
+              <span> ສ່ວນຕ່າງ: {{getFormatNum( totalSaleOriginal.replaceAll(",","")-totalSale.replaceAll(",","")) }}</span>
+            </div>
           </v-col>
           <v-col cols="12" lg="5">
             <v-text-field
@@ -139,6 +145,18 @@ export default {
           sortable: false,
         },
         {
+          text: 'ລາຄາເຕັມ',
+          align: 'end',
+          value: 'no_discount_price',
+          sortable: false,
+        },
+        {
+          text: 'ລວມລາຄາເຕັມ',
+          align: 'end',
+          value: 'total_no_discount_price',
+          sortable: false,
+        },
+        {
           text: 'ວັນທີ',
           align: 'center',
           value: 'txn_date',
@@ -203,6 +221,16 @@ export default {
       return this.getFormatNum(total)
       // return total
     },
+    totalSaleOriginal() {
+      let total = 0
+      this.loaddata.forEach((el) => {
+        total += parseInt(el.total_no_discount_price.replaceAll(',', ''))
+      })
+      console.log('Price total: ' + total)
+      // return previousValue.order_price_total + currentValue.order_price_total
+      return this.getFormatNum(total)
+      // return total
+    },
   },
   methods: {
     getFormatNum(val) {
@@ -223,6 +251,8 @@ export default {
               product_amount: el.product_amount,
               product_price: this.getFormatNum(el.product_price),
               order_price_total: this.getFormatNum(el.order_price_total),
+              no_discount_price: this.getFormatNum((el.product_price/(100-el.product_discount))*100),
+              total_no_discount_price: this.getFormatNum((el.order_price_total/(100-el.product_discount))*100),
               txn_date: el.txn_date.replaceAll('T', ' '),
               function: el.order_id,
             }
