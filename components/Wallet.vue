@@ -1,5 +1,6 @@
 <template>
   <div class="text-center">
+    <!-- Token{{ this.$store.getters.loggedInUser.token }} -->
     <v-dialog v-model="dialogMessage" max-width="300px" persistent>
       <dialog-classic-message :message="message" @closedialog="message = null">
       </dialog-classic-message>
@@ -9,7 +10,8 @@
     </v-dialog>
     <v-card>
       <v-card-title>
-        ຈັດການ Wallet {{ form_data.user_id || 'null' }} balance: {{form_data.user_balance}}</v-card-title
+        ຈັດການ Wallet {{ form_data.user_id || 'null' }} balance:
+        {{ form_data.user_balance }}</v-card-title
       >
       <v-container>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -47,7 +49,7 @@
           ></v-text-field> -->
           <!-- <span>{{ formatNum(form_data.txn_his_amount) }}</span> -->
         </v-form>
-        {{userId}}
+        {{ userId }}
         <slot> </slot>
       </v-container>
       <v-card-actions>
@@ -70,14 +72,14 @@ export default {
       requiret: true,
       default: 0,
     },
-    cusBalance:{
-      type:Number,
-      requiret:true,
-      default:0,
+    cusBalance: {
+      type: Number,
+      requiret: true,
+      default: 0,
     },
   },
   //   props: ['userId'],
-  data ()  {
+  data() {
     return {
       loaddata: [],
       isloading: false,
@@ -140,21 +142,28 @@ export default {
         return
       }
       console.log('submitIn')
-      const balance=this.form_data.user_balance;
-      const txnAmount=this.form_data.txn_his_amount;
-      if(this.form_data.txn_id===1006){
-        if(txnAmount>balance){
-          this.isloading=false;
-          this.message="ຍອດເງິນໃນບັນຊີ ບໍ່ພຽງພໍ";
-          console.log("Biger")
-          return;
+      const balance = this.form_data.user_balance
+      const txnAmount = this.form_data.txn_his_amount
+      const token = this.$store.getters.loggedInUser.token
+      if (this.form_data.txn_id === 1006) {
+        if (txnAmount > balance) {
+          this.isloading = false
+          this.message = 'ຍອດເງິນໃນບັນຊີ ບໍ່ພຽງພໍ'
+          console.log('Biger')
+          return
         }
       }
       // return;
       const urlpath = '/txn_his_'
+      const header = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      }
       if (this.isedit) {
         await this.$axios
-          .put(urlpath + 'e', this.form_data)
+          .put(urlpath + 'e', this.form_data, header)
           .then((res) => {
             this.message = res.data
             // this.reset()
@@ -165,7 +174,7 @@ export default {
         this.isloading = false
       } else {
         await this.$axios
-          .post(urlpath + 'i', this.form_data)
+          .post(urlpath + 'i', this.form_data, header)
           .then((res) => {
             this.message = res.data
             // this.reset()
