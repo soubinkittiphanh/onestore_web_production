@@ -98,6 +98,11 @@ export default {
           title: 'ລາຍງານສະເຕດເມັ້ນ',
           to: '/admin/report',
         },
+        {
+          icon: 'mdi-cash',
+          title: 'ລາຍງານບັດທີ່ຍົກເລີກ',
+          to: '/admin/report_card',
+        },
          {
           icon: 'mdi-alarm-light',
           title: 'ຈັດການໂຄສະນາ',

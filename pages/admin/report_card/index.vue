@@ -69,8 +69,7 @@
               ></v-date-picker>
             </v-menu>
             <!-- <span> ລາຄາລວມ: {{ totalSale }}</span> -->
-            <div> ເຕີມ: {{ totalDebit }}</div>
-            <div> ຖອນ: {{ totalCredit }}</div>
+            <div> ລວມ: {{ totalDebit }}</div>
           </v-col>
           <v-col cols="12" lg="5">
             <v-text-field
@@ -120,16 +119,16 @@ export default {
       loaddata: [],
       headers: [
         {
-          text: 'ລະຫັດ',
+          text: 'ລະຫັດສິນຄ້າ',
           align: 'center',
           value: 'txnHisId',
         },
-        { text: 'ລະຫັດລູກຄ້າ', align: 'center', value: 'userId' },
-        { text: 'ລະຫັດແອັດມິນ', align: 'center', value: 'inputter' },
+        { text: 'ຜູ້ດຳເນີນການ', align: 'center', value: 'userId' },
+        { text: 'ສິນຄ້າ', align: 'center', value: 'inputter' },
         { text: 'ວັນທີ', align: 'center', value: 'txnDate' },
-        { text: 'ທຸລະກຳ', align: 'center', value: 'txnName' },
+        { text: 'ທຸລະກຳ ລະຫັດ', align: 'center', value: 'txnName' },
         {
-          text: 'ຈຳນວນ',
+          text: 'ລາຄາ',
           align: 'end',
           value: 'amount',
           sortable: true,
@@ -196,9 +195,8 @@ export default {
     totalDebit() {
       let total = 0
       this.loaddata.forEach((el) => {
-        if (el.txnId === 1000) {
           total += parseInt(el.amount.replaceAll(',', ''))
-        }
+        
       })
       console.log('Price total: ' + total)
       // return previousValue.order_price_total + currentValue.order_price_total
@@ -224,9 +222,9 @@ export default {
       this.isloading = true
       await this.$axios
         .get(
-          'report_txn/?fromDate=' +
+          'card_his_f/?fdate=' +
             this.date +
-            '&toDate=' +
+            '&tdate=' +
             this.date2 +
             '&userId=' +
             this.userId
@@ -235,13 +233,13 @@ export default {
           this.loaddata = res.data.map((el) => {
             console.log(el.cus_id)
             return {
-              txnHisId: el.txn_his_id,
-              amount: this.getFormatNum(el.txn_his_amount),
-              userId: el.user_id+' '+el.cus_name,
-              inputter: el.txn_his_inputter+' '+el.user_name,
-              txnDate: el.txn_his_date,
-              txnName: el.txn_name,
-              txnId: el.txn_id,
+              txnHisId: el.product_id,
+              amount: this.getFormatNum(el.pro_price),
+              userId: el.update_user+' '+el.user_name,
+              inputter: el.product_id+' '+el.pro_name,
+              txnDate: el.update_time,
+              txnName: el.card_number,
+              txnId: el.product_id,
             }
           })
         })
